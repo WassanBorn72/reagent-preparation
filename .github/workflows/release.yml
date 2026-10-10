@@ -1,0 +1,108 @@
+name: Release desktop applications
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate release tag and notes
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
+        run: |
+          node - <<'JS'
+          const fs = require('node:fs');
+          const tag = process.env.RELEASE_TAG;
+          if (process.env.REF_TYPE !== 'tag' || tag !== `v${require('./package.json').version}` || !/^v\d+\.\d+\.\d+$/.test(tag)) throw new Error('Run on the version tag matching package.json');
+          if (!fs.existsSync(`releases/${tag}.md`)) throw new Error('Release notes are missing');
+          JS
+      - run: npm test
+
+  build:
+    needs: validate
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            command: build:win
+            artifact: windows
+            pattern: dist/*.exe
+          - os: macos-latest
+            command: build:mac
+            artifact: macos
+            pattern: dist/*.dmg
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run ${{ matrix.command }} -- --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.artifact }}
+          path: ${{ matrix.pattern }}
+          if-no-files-found: error
+
+  publish:
+    needs: [validate, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          merge-multiple: true
+          path: release-assets
+      - name: Verify assets and generate checksums
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, os
+          from pathlib import Path
+          root = Path('release-assets')
+          version = os.environ['RELEASE_TAG'][1:]
+          expected = {f'Reagent-Calculator-{version}-Windows.exe', f'Reagent-Calculator-{version}-macOS-x64.dmg', f'Reagent-Calculator-{version}-macOS-arm64.dmg'}
+          files = sorted(root.iterdir())
+          if {p.name for p in files} != expected or any(p.stat().st_size == 0 for p in files):
+              raise SystemExit('Required Windows/Intel Mac/Apple Silicon Mac assets are missing')
+          with (root / 'SHA256SUMS.txt').open('w') as output:
+              for file in files:
+                  with file.open('rb') as source:
+                      digest = hashlib.file_digest(source, 'sha256').hexdigest()
+                  output.write(f'{digest}  {file.name}\n')
+          PY
+      - name: Publish complete release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release already exists; refusing to overwrite it."
+            exit 1
+          fi
+          gh release create "$RELEASE_TAG" release-assets/* --verify-tag --title "試薬作成計算ソフト $RELEASE_TAG" --notes-file "releases/$RELEASE_TAG.md" --draft
+          gh release edit "$RELEASE_TAG" --draft=false --latest

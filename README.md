@@ -15,6 +15,10 @@
 - 実験ノート向けの組成表のコピー・HTML出力・印刷・PDF保存
 - 外部通信なしで動作
 
+## 完成版のダウンロード
+
+[Releases](https://github.com/WassanBorn72/reagent-preparation/releases) のAssetsから、Windowsは `.exe`、Intel Macは `macOS-x64.dmg`、Apple Silicon Macは `macOS-arm64.dmg` を取得してください。Node.jsの導入は不要です。配布ファイルのSHA-256は `SHA256SUMS.txt` に記載します。リリース処理中は、Actionsの成功後にファイルが表示されます。
+
 ## デスクトップ版の起動
 
 開発用の起動にはNode.js 24 LTSとnpmを使用します。初回の依存関係取得にはインターネット接続が必要です。
@@ -118,3 +122,9 @@ HTTP配信する場合は、このフォルダーで `python3 -m http.server 800
 | `desktop/preload.js` | 安全に限定したデスクトップ操作の橋渡し |
 | `package.json` | デスクトップの起動・配布設定 |
 | `.github/workflows/desktop-build.yml` | 各OSの配布用ビルド |
+
+## 正式リリースの作成（開発者向け）
+
+`package.json` と `package-lock.json` のバージョンを揃え、`releases/vX.Y.Z.md` に変更内容を記載してコミットします。そのコミットに `vX.Y.Z` タグを付けてプッシュすると、**Release desktop applications** がWindows・Intel Mac・Apple Silicon Macの配布ファイルを作成します。テスト・全ビルド・ファイルの検証が成功した場合のみ、チェックサムとリリースノートを添えて正式Releaseを公開します。公開ジョブのみリポジトリへの書き込み権限を使用します。
+
+失敗時はActionsのログを確認し、修正が必要なら次のバージョンでリリースしてください。一時的な失敗はタグを選んだ手動実行またはRe-runで再試行できます。既存Releaseの上書きは行いません。GitHubでActionsや組織ポリシーにより書き込みを制限している場合は、管理者による設定確認が必要です。

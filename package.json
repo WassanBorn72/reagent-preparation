@@ -37,6 +37,7 @@
       "artifactName": "Reagent-Calculator-${version}-Windows.${ext}"
     },
     "mac": {
+      "artifactName": "Reagent-Calculator-${version}-macOS-${arch}.${ext}",
       "target": [
         "dmg"
       ],
