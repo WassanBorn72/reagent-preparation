@@ -2,7 +2,7 @@
 
 専用ウィンドウで使える、オフライン対応の希釈・組成計算アプリです。Electronを使用したデスクトップ版と、ブラウザで直接開く版があります。計算時にインターネット接続やアカウントは不要です。
 
-開発リポジトリ： [WassanBorn72/solution-dilution-calculator](https://github.com/WassanBorn72/solution-dilution-calculator)
+開発リポジトリ： [WassanBorn72/reagent-preparation](https://github.com/WassanBorn72/reagent-preparation)
 
 ## 主な機能
 
@@ -20,8 +20,8 @@
 開発用の起動にはNode.js 24 LTSとnpmを使用します。初回の依存関係取得にはインターネット接続が必要です。
 
 ```sh
-git clone https://github.com/WassanBorn72/solution-dilution-calculator.git
-cd solution-dilution-calculator
+git clone https://github.com/WassanBorn72/reagent-preparation.git
+cd reagent-preparation
 npm ci
 npm start
 ```
@@ -53,8 +53,8 @@ GitHubの **Actions → Build desktop applications → Run workflow** でも各O
 GitHubの **Code → Download ZIP** から取得できます。Gitを使う場合は以下を実行します。
 
 ```sh
-git clone https://github.com/WassanBorn72/solution-dilution-calculator.git
-cd solution-dilution-calculator
+git clone https://github.com/WassanBorn72/reagent-preparation.git
+cd reagent-preparation
 ```
 
 1. 最終容量と溶媒名を入力します。
