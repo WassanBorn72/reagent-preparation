@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, clipboard, dialog } = require('electron');
+const fs = require('node:fs/promises');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const entry = path.join(__dirname, '..', 'index.html');
@@ -13,6 +14,7 @@ function createWindow() {
     show: false,
     autoHideMenuBar: true,
     webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true
@@ -28,6 +30,28 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  function recipeWindow(event) {
+    const window = BrowserWindow.fromWebContents(event.sender);
+    if (!window || event.senderFrame !== event.sender.mainFrame || event.sender.getURL() !== pathToFileURL(entry).href) throw new Error('Invalid sender');
+    return window;
+  }
+  ipcMain.handle('copy-table', (event, html, text) => {
+    recipeWindow(event);
+    if (typeof html !== 'string' || typeof text !== 'string' || html.length > 2000000 || text.length > 1000000) throw new Error('Invalid table');
+    clipboard.write({ html, text });
+  });
+  ipcMain.handle('save-pdf', async event => {
+    const window = recipeWindow(event);
+    const result = await dialog.showSaveDialog(window, { title: '調製レシピをPDF保存', defaultPath: 'reagent-recipe.pdf', filters: [{ name: 'PDF', extensions: ['pdf'] }] });
+    if (result.canceled) return false;
+    const pdf = await window.webContents.printToPDF({ printBackground: true, pageSize: 'A4' });
+    await fs.writeFile(result.filePath, pdf);
+    return true;
+  });
+  ipcMain.handle('print-recipe', async event => {
+    const window = recipeWindow(event);
+    return new Promise((resolve, reject) => window.webContents.print({ silent: false, printBackground: true }, (success, reason) => success ? resolve(true) : reject(new Error(reason))));
+  });
   // JSON exports use a native Save As dialog rather than a browser download tab.
   app.on('web-contents-created', (_event, contents) => {
     contents.session.on('will-download', (_downloadEvent, item) => {
