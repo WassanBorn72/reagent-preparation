@@ -1,6 +1,6 @@
 # 試薬作成計算ソフト
 
-PCのブラウザで使える、オフライン対応の希釈・組成計算アプリです。外部ライブラリやインストール、アカウントは不要です。
+専用ウィンドウで使える、オフライン対応の希釈・組成計算アプリです。Electronを使用したデスクトップ版と、ブラウザで直接開く版があります。計算時にインターネット接続やアカウントは不要です。
 
 開発リポジトリ： [WassanBorn72/solution-dilution-calculator](https://github.com/WassanBorn72/solution-dilution-calculator)
 
@@ -13,7 +13,34 @@ PCのブラウザで使える、オフライン対応の希釈・組成計算ア
 - 調製レシピの印刷・PDF保存
 - 外部通信なしで動作
 
-## 起動
+## デスクトップ版の起動
+
+開発用の起動にはNode.js 24 LTSとnpmを使用します。初回の依存関係取得にはインターネット接続が必要です。
+
+```sh
+git clone https://github.com/WassanBorn72/solution-dilution-calculator.git
+cd solution-dilution-calculator
+npm ci
+npm start
+```
+
+ブラウザのタブではなく、独立したアプリウィンドウが開きます。入力はアプリ専用の領域に保存され、ブラウザ版の保存内容とは別です。既存の入力はJSONファイルで移行できます。
+
+### 配布用アプリの作成
+
+対象OS上で次のコマンドを実行してください。出力先は `dist/` です。
+
+| OS | コマンド | 配布形式 |
+| --- | --- | --- |
+| Windows x64 | `npm run build:win` | ポータブル `.exe` |
+| macOS | `npm run build:mac` | Intel・Apple Siliconそれぞれの `.dmg` |
+| Linux x64 | `npm run build:linux` | `.AppImage` |
+
+配布用アプリはNode.jsを内包するので、利用するPCへのNode.js導入は不要です。Windows版はexeを起動、macOS版はDMGからApplicationsへコピー、Linux版はAppImageに実行権限を付けて起動します。LinuxではFUSE等のOS側の依存関係が必要な場合があります。
+
+GitHubの **Actions → Build desktop applications → Run workflow** でも各OSの配布ファイルを作成できます。成功した実行のArtifactsからダウンロードしてください。自動公開は行いません。現時点では署名・公証を設定していないため、OSによって発行元の警告が出る場合があります。公開配布する際には署名・公証を整備してください。
+
+## ブラウザ版の起動
 
 このフォルダーをPCにダウンロードし、展開して `index.html` をブラウザで開いてください。`app.js`、`calculator.js`、`style.css` は同じフォルダーに置いてください。
 
@@ -43,7 +70,7 @@ cd solution-dilution-calculator
 
 ## 開発・検証
 
-Node.js 18以降で `node --test tests/calculator.test.js` を実行します。依存パッケージのインストールは不要です。
+計算ロジックのみのテストはNode.js 18以降で実行できます。Electronの開発・ビルドには上記の環境を使用してください。
 
 ```sh
 node --test tests/calculator.test.js
@@ -62,3 +89,6 @@ HTTP配信する場合は、このフォルダーで `python3 -m http.server 800
 | `calculator.js` | 単位換算と希釈計算 |
 | `app.js` | 画面操作、保存・復元、結果表示 |
 | `tests/calculator.test.js` | 計算ロジックのテスト |
+| `desktop/main.js` | デスクトップアプリのウィンドウ起動 |
+| `package.json` | デスクトップの起動・配布設定 |
+| `.github/workflows/desktop-build.yml` | 各OSの配布用ビルド |
