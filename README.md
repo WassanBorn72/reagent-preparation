@@ -19,6 +19,19 @@
 
 [Releases](https://github.com/WassanBorn72/reagent-preparation/releases) のAssetsから、Windowsは `.exe`、Intel Macは `macOS-x64.dmg`、Apple Silicon Macは `macOS-arm64.dmg` を取得してください。Node.jsの導入は不要です。配布ファイルのSHA-256は `SHA256SUMS.txt` に記載します。リリース処理中は、Actionsの成功後にファイルが表示されます。
 
+### 配布ファイル名の見方
+
+`Reagent-Preparation-Calculator` は「試薬作成計算ソフト」の識別名です。ファイル名でソフト・版・対象PCが分かるようにしています。
+
+| v1.1.1のファイル名 | 対象 |
+| --- | --- |
+| `Reagent-Preparation-Calculator-v1.1.1-Windows-x64-Portable.exe` | Windows、インストール不要のポータブル版 |
+| `Reagent-Preparation-Calculator-v1.1.1-macOS-x64.dmg` | Intel Mac |
+| `Reagent-Preparation-Calculator-v1.1.1-macOS-arm64.dmg` | Apple Silicon Mac（Mシリーズ） |
+| `Reagent-Preparation-Calculator-v1.1.1-Browser-Offline.zip` | オフラインブラウザ版（展開してindex.htmlを開く） |
+
+GitHubの「Source code (zip / tar.gz)」は自動生成の開発用ソースです。この表示名は変更できません。通常の利用では上記の名前付きファイルを取得してください。
+
 ## デスクトップ版の起動
 
 開発用の起動にはNode.js 24 LTSとnpmを使用します。初回の依存関係取得にはインターネット接続が必要です。
@@ -125,6 +138,6 @@ HTTP配信する場合は、このフォルダーで `python3 -m http.server 800
 
 ## 正式リリースの作成（開発者向け）
 
-`package.json` と `package-lock.json` のバージョンを揃え、`releases/vX.Y.Z.md` に変更内容を記載してコミットします。そのコミットに `vX.Y.Z` タグを付けてプッシュすると、**Release desktop applications** がWindows・Intel Mac・Apple Silicon Macの配布ファイルを作成します。テスト・全ビルド・ファイルの検証が成功した場合のみ、チェックサムとリリースノートを添えて正式Releaseを公開します。公開ジョブのみリポジトリへの書き込み権限を使用します。
+`package.json` と `package-lock.json` のバージョンを揃え、`releases/vX.Y.Z.md` に変更内容を記載してコミットします。そのコミットに `vX.Y.Z` タグを付けてプッシュすると、**Release desktop applications** がWindows・Intel Mac・Apple Silicon Macの配布ファイルを作成します。テスト・全ビルド・ファイルの検証が成功した場合のみ、名前付きのオフラインブラウザ版ZIP、チェックサムとリリースノートを添えて正式Releaseを公開します。公開ジョブのみリポジトリへの書き込み権限を使用します。
 
 失敗時はActionsのログを確認し、修正が必要なら次のバージョンでリリースしてください。一時的な失敗はタグを選んだ手動実行またはRe-runで再試行できます。既存Releaseの上書きは行いません。GitHubでActionsや組織ポリシーにより書き込みを制限している場合は、管理者による設定確認が必要です。

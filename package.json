@@ -1,6 +1,6 @@
 {
   "name": "solution-dilution-calculator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Offline reagent preparation calculator",
   "private": true,
   "main": "desktop/main.js",
@@ -34,10 +34,10 @@
       "target": [
         "portable"
       ],
-      "artifactName": "Reagent-Calculator-${version}-Windows.${ext}"
+      "artifactName": "Reagent-Preparation-Calculator-v${version}-Windows-${arch}-Portable.${ext}"
     },
     "mac": {
-      "artifactName": "Reagent-Calculator-${version}-macOS-${arch}.${ext}",
+      "artifactName": "Reagent-Preparation-Calculator-v${version}-macOS-${arch}.${ext}",
       "target": [
         "dmg"
       ],
@@ -47,7 +47,8 @@
       "target": [
         "AppImage"
       ],
-      "category": "Utility"
+      "category": "Utility",
+      "artifactName": "Reagent-Preparation-Calculator-v${version}-Linux-${arch}.${ext}"
     }
   }
 }

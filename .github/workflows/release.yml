@@ -81,14 +81,20 @@ jobs:
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
           python3 - <<'PY'
-          import hashlib, os
+          import hashlib, os, zipfile
           from pathlib import Path
           root = Path('release-assets')
           version = os.environ['RELEASE_TAG'][1:]
-          expected = {f'Reagent-Calculator-{version}-Windows.exe', f'Reagent-Calculator-{version}-macOS-x64.dmg', f'Reagent-Calculator-{version}-macOS-arm64.dmg'}
+          expected = {f'Reagent-Preparation-Calculator-v{version}-Windows-x64-Portable.exe', f'Reagent-Preparation-Calculator-v{version}-macOS-x64.dmg', f'Reagent-Preparation-Calculator-v{version}-macOS-arm64.dmg'}
           files = sorted(root.iterdir())
           if {p.name for p in files} != expected or any(p.stat().st_size == 0 for p in files):
               raise SystemExit('Required Windows/Intel Mac/Apple Silicon Mac assets are missing')
+          # A named offline browser bundle avoids confusion with GitHub's source archives.
+          browser = root / f'Reagent-Preparation-Calculator-v{version}-Browser-Offline.zip'
+          with zipfile.ZipFile(browser, 'w', zipfile.ZIP_DEFLATED) as archive:
+              for name in ['index.html', 'app.js', 'calculator.js', 'style.css', 'README.md']:
+                  archive.write(name, arcname=f'Reagent-Preparation-Calculator/{name}')
+          files = sorted(root.iterdir())
           with (root / 'SHA256SUMS.txt').open('w') as output:
               for file in files:
                   with file.open('rb') as source:
