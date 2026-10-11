@@ -36,6 +36,9 @@ jobs:
       - name: Verify macOS 12 compatibility metadata
         if: runner.os == 'macOS'
         run: python3 scripts/check-macos-minimum.py
+      - name: Verify Mac signatures and launch Apple Silicon app
+        if: runner.os == 'macOS'
+        run: python3 scripts/check-macos-launch.py
       - uses: actions/upload-artifact@v4
         with:
           name: reagent-calculator-${{ matrix.artifact }}

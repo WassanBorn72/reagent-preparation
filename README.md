@@ -4,16 +4,16 @@
 
 ## ダウンロード
 
-**v1.1.3をダウンロード**：利用するPCに合うリンクをクリックしてください。
+**v1.1.4をダウンロード**（新しい公開処理が完了後に利用できます。未公開の場合は[リリース一覧](https://github.com/WassanBorn72/reagent-preparation/releases)をご確認ください）：利用するPCに合うリンクをクリックしてください。
 
 | 利用するPC | 直接ダウンロード | 使い方 |
 | --- | --- | --- |
-| Windows（x64） | [Windows版（EXE）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-Windows-x64-Portable.exe) | ダウンロードしたEXEをダブルクリック |
-| Intel Mac | [Intel Mac版（DMG）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-macOS-x64.dmg) | DMGを開き、アプリをApplicationsにコピーして起動 |
-| Apple Silicon Mac（Mシリーズ） | [Apple Silicon Mac版（DMG）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-macOS-arm64.dmg) | DMGを開き、アプリをApplicationsにコピーして起動 |
-| ブラウザで使う場合 | [オフラインブラウザ版（ZIP）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-Browser-Offline.zip) | ZIPを展開し、フォルダー内の `index.html` を開く |
+| Windows（x64） | [Windows版（EXE）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.4/Reagent-Preparation-Calculator-v1.1.4-Windows-x64-Portable.exe) | ダウンロードしたEXEをダブルクリック |
+| Intel Mac | [Intel Mac版（DMG）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.4/Reagent-Preparation-Calculator-v1.1.4-macOS-x64.dmg) | DMGを開き、アプリをApplicationsにコピーして起動 |
+| Apple Silicon Mac（Mシリーズ） | [Apple Silicon Mac版（DMG）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.4/Reagent-Preparation-Calculator-v1.1.4-macOS-arm64.dmg) | DMGを開き、アプリをApplicationsにコピーして起動 |
+| ブラウザで使う場合 | [オフラインブラウザ版（ZIP）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.4/Reagent-Preparation-Calculator-v1.1.4-Browser-Offline.zip) | ZIPを展開し、フォルダー内の `index.html` を開く |
 
-[リリース詳細・更新情報](https://github.com/WassanBorn72/reagent-preparation/releases/tag/v1.1.3) ／ [リリース一覧](https://github.com/WassanBorn72/reagent-preparation/releases)
+[リリース詳細・更新情報](https://github.com/WassanBorn72/reagent-preparation/releases/tag/v1.1.4) ／ [リリース一覧](https://github.com/WassanBorn72/reagent-preparation/releases)
 
 ファイル名は `Reagent-Preparation-Calculator-vバージョン番号-…` です。通常の利用には **Source code (zip / tar.gz)** を選ぶ必要はありません。追加の開発ツールのインストールも不要です。
 
@@ -21,11 +21,30 @@ Macの種類はAppleメニューの「このMacについて」で確認できま
 
 ### Macの対応OS
 
-**v1.1.3はmacOS 12（Monterey）以降を対象**としています。macOS 12.7.4では、v1.1.0・v1.1.1は起動できないため、v1.1.3の対応版を選んでください。macOS 12.7.4での実機起動はまだ確認できていません。
+**v1.1.4はmacOS 12（Monterey）以降を対象**としています。macOS 12.7.4では、v1.1.0・v1.1.1は起動できないため、v1.1.4の対応版を選んでください。macOS 12.7.4での実機起動はまだ確認できていません。
 
 ### 起動時に警告が表示される場合
 
-現在の配布版は署名・Macの公証を設定していないため、WindowsやMacで発行元に関する警告や起動制限が出る場合があります。公式のリリースページから取得したファイルか確認してください。管理されたPCでは管理者に相談してください。
+Windowsの発行元署名とMacのApple Developer ID署名・公証は設定していないため、WindowsやMacで発行元に関する警告や起動制限が出る場合があります。公式のリリースページから取得したファイルか確認してください。管理されたPCでは管理者に相談してください。
+
+### Macで「壊れているため開けません」と表示される場合
+
+v1.1.4ではMac版をアドホック署名し、配布前に署名の整合性とMac上の起動を検査します。Appleの公証済みアプリではないため、ダウンロードしたファイルの検疫によって引き続き起動を制限される場合があります。「壊れている」という表示だけでは、実際の破損か検疫による制限かは判断できません。
+
+まず公式Releaseから対応するDMGを再取得し、Applicationsにコピーした後に起動してください。問題が続く場合、公式配布元を信頼できることを確認したうえで、ターミナルで次を実行できます。
+
+```sh
+codesign --verify --deep --strict --verbose=2 "/Applications/Reagent Calculator.app"
+```
+
+**署名検証にエラーが出たら、この先の操作は行わず、再ダウンロードまたは不具合報告をしてください。** 検証が成功しても同じ表示が出る場合に限り、次の操作でこのアプリの検疫属性を解除して起動できます。この操作はこのアプリに対するダウンロード検疫のチェックを外すもので、公証や発行元の保証を追加するものではありません。
+
+```sh
+xattr -dr com.apple.quarantine "/Applications/Reagent Calculator.app"
+open "/Applications/Reagent Calculator.app"
+```
+
+PC全体のGatekeeperを無効にする必要はありません。管理PCの場合は管理者に相談してください。この操作を避けたい場合はオフラインブラウザ版を利用できます。CIの起動テストはダウンロード検疫のない環境のため、ダウンロードしたアプリの起動成功を保証するものではありません。
 
 ブラウザ版では、展開したフォルダー内の `index.html`、`app.js`、`calculator.js`、`style.css` を同じ場所に置いたまま使ってください。
 

@@ -51,7 +51,7 @@ node --test tests/*.test.js
 
 **Actions → Build desktop applications → Run workflow** でも各OSの配布ファイルを作成できます。成功した実行のArtifactsから取得してください。このワークフローはReleaseを公開しません。Windows・Macが正式リリースの対象で、Linuxは開発用ビルドの対象です。
 
-コード署名・macOS公証は未設定です。署名済み配布を行う場合は、必要な証明書・認証情報をGitHub Secretsで管理し、ビルド設定と利用者向け説明を更新してください。秘密情報をリポジトリに保存しないでください。
+Windowsの発行元署名とMacのApple Developer ID署名・公証は未設定です。Mac版は `identity: "-"` と `hardenedRuntime: false` で明示的にアドホック署名します（発行元の証明にはなりません）。両CPU版を `codesign --verify --deep --strict` で検査し、CIと同じCPU版を新しいプロファイルで起動して初期レシピを計算します。CIにはダウンロード検疫がないため、このテストはGatekeeperの受け入れ確認ではありません。署名済み配布を行う場合は、必要な証明書・認証情報をGitHub Secretsで管理し、ビルド設定と利用者向け説明を更新してください。秘密情報をリポジトリに保存しないでください。
 
 ビルド成功と実機での動作確認は別です。実機では起動、計算、ストックの保持、JSON保存・復元、表のコピー、印刷・PDF保存を確認してください。
 
@@ -83,3 +83,7 @@ node --test tests/*.test.js
 | `.github/workflows/release.yml` | 正式リリースのビルド・公開 |
 | `releases/` | バージョンごとのリリースノート |
 | `DEVELOPMENT.md` | 開発者向けガイド |
+
+## アイコン
+
+薬品を混ぜるイメージのアイコンを `build/icon.png`、`build/icon.ico`、`build/icon.icns` に配置します。画面とブラウザでは `assets/icon.png` を使用します。Electronの配布設定・ウィンドウ・HTMLの参照を揃え、ブラウザ版ZIPにもassetsを含めてください。

@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="ja">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>試薬作成計算ソフト</title><link rel="stylesheet" href="style.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>試薬作成計算ソフト</title><link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="style.css"></head>
 <body>
 <main>
-  <header><span class="tag">REAGENT PREPARATION</span><h1>試薬作成計算ソフト</h1><p>ストック濃度と目標の組成から、必要な分注量を計算します。</p></header>
+  <header><img class="app-icon" src="assets/icon.png" alt="薬品を混ぜるフラスコ"><span class="tag">REAGENT PREPARATION</span><h1>試薬作成計算ソフト</h1><p>ストック濃度と目標の組成から、必要な分注量を計算します。</p></header>
   <section><h2>1. 作成する溶液</h2><div class="settings"><label>溶液名<input id="recipe-name" placeholder="例：作業用バッファー"></label><label>最終容量<input id="total" type="number" min="0" step="any" value="100"></label><label>容量の単位<select id="volume-unit"><option>mL</option><option>µL</option><option>L</option></select></label><label>溶媒名<input id="solvent" value="精製水"></label></div></section>
   <section id="stock-library"><h2>保存したストック試薬</h2><p class="hint">名前・濃度を登録し、下の追加ボタンで組成に入れられます。最終濃度は追加後に入力してください。</p><form id="stock-form" class="settings"><label>試薬名<input id="stock-name" required></label><label>ストック濃度<input id="stock-concentration" type="number" min="0" step="any" required></label><label>単位<select id="stock-unit"></select></label><button type="submit">ストックを登録</button></form><div id="stock-list"></div><button id="stock-export" type="button">ストック一覧を保存</button> <label class="import">ストック一覧を開く<input id="stock-import" type="file" accept=".json,application/json"></label><p id="stock-status" role="status"></p></section>
   <section><div class="section-title"><h2>2. ストックと最終組成</h2><button id="add" type="button">＋ 試薬を追加</button></div><p class="hint">モル濃度・質量濃度・体積百分率・倍率に対応。同じ種類の単位間で換算します。</p><div class="table-wrap"><table><thead><tr><th>試薬名</th><th>ストック濃度</th><th>単位</th><th>最終濃度</th><th>単位</th><th><span class="sr-only">削除</span></th></tr></thead><tbody id="rows"></tbody></table></div><button id="calculate" class="primary" type="button">必要量を計算</button><p id="error" role="alert"></p></section>

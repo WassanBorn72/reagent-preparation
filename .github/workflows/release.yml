@@ -61,6 +61,9 @@ jobs:
       - name: Verify macOS 12 compatibility metadata
         if: runner.os == 'macOS'
         run: python3 scripts/check-macos-minimum.py
+      - name: Verify Mac signatures and launch Apple Silicon app
+        if: runner.os == 'macOS'
+        run: python3 scripts/check-macos-launch.py
       - uses: actions/upload-artifact@v4
         with:
           name: release-${{ matrix.artifact }}
@@ -97,6 +100,7 @@ jobs:
           with zipfile.ZipFile(browser, 'w', zipfile.ZIP_DEFLATED) as archive:
               for name in ['index.html', 'app.js', 'calculator.js', 'style.css', 'README.md']:
                   archive.write(name, arcname=f'Reagent-Preparation-Calculator/{name}')
+              archive.write('assets/icon.png', arcname='Reagent-Preparation-Calculator/assets/icon.png')
           files = sorted(root.iterdir())
           with (root / 'SHA256SUMS.txt').open('w') as output:
               for file in files:

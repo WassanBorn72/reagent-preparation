@@ -3,3 +3,5 @@
 .sr-only{position:fixed;left:0;top:0}
 #stock-form{align-items:end}#stock-list{margin:20px 0}.stock-item{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}.stock-item button:first-child{background:#edf7f7}.actions{display:flex;gap:10px;flex-wrap:wrap}#stock-status,#output-status{font-size:13px;color:#476773}#result-content{overflow-x:auto}
 @media print{header,.actions,#output-status,#result>.hint{display:none}#result{padding:0}#result-content{overflow:visible}#result-content th,#result-content td{border:1px solid #555;padding:6px;font-size:11px;color:black}#result h2{font-size:16px}#result-content tr{break-inside:avoid}}
+
+.app-icon{width:72px;height:72px;border-radius:16px;float:right;margin-left:16px}

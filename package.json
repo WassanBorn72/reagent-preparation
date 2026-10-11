@@ -1,6 +1,6 @@
 {
   "name": "solution-dilution-calculator",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Offline reagent preparation calculator",
   "private": true,
   "main": "desktop/main.js",
@@ -28,13 +28,15 @@
       "app.js",
       "calculator.js",
       "desktop/**/*",
-      "package.json"
+      "package.json",
+      "assets/**/*"
     ],
     "win": {
       "target": [
         "portable"
       ],
-      "artifactName": "Reagent-Preparation-Calculator-v${version}-Windows-${arch}-Portable.${ext}"
+      "artifactName": "Reagent-Preparation-Calculator-v${version}-Windows-${arch}-Portable.${ext}",
+      "icon": "build/icon.ico"
     },
     "mac": {
       "artifactName": "Reagent-Preparation-Calculator-v${version}-macOS-${arch}.${ext}",
@@ -42,14 +44,18 @@
         "dmg"
       ],
       "category": "public.app-category.utilities",
-      "minimumSystemVersion": "12.0.0"
+      "minimumSystemVersion": "12.0.0",
+      "icon": "build/icon.icns",
+      "identity": "-",
+      "hardenedRuntime": false
     },
     "linux": {
       "target": [
         "AppImage"
       ],
       "category": "Utility",
-      "artifactName": "Reagent-Preparation-Calculator-v${version}-Linux-${arch}.${ext}"
+      "artifactName": "Reagent-Preparation-Calculator-v${version}-Linux-${arch}.${ext}",
+      "icon": "build/icon.png"
     }
   }
 }

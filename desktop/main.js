@@ -3,10 +3,12 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const entry = path.join(__dirname, '..', 'index.html');
+const smokeTest = process.argv.includes('--smoke-test');
 
 function createWindow() {
   const window = new BrowserWindow({
     title: '試薬作成計算ソフト',
+    icon: path.join(__dirname, '..', 'assets', 'icon.png'),
     width: 1150,
     height: 850,
     minWidth: 640,
@@ -25,7 +27,23 @@ function createWindow() {
     if (url !== pathToFileURL(entry).href) event.preventDefault();
   });
   window.webContents.session.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
-  window.once('ready-to-show', () => window.show());
+  window.once('ready-to-show', () => { if (!smokeTest) window.show(); });
+  if (smokeTest) {
+    const timeout = setTimeout(() => app.exit(1), 30000);
+    window.webContents.once('did-finish-load', async () => {
+      try {
+        const valid = await window.webContents.executeJavaScript(`
+          document.getElementById('calculate').click();
+          document.getElementById('result').hidden === false &&
+          document.getElementById('result-content').textContent.includes('92 mL') &&
+          typeof require === 'undefined';
+        `);
+        clearTimeout(timeout);
+        console.log('Packaged app smoke test:', valid ? 'PASS' : 'FAIL');
+        app.exit(valid ? 0 : 1);
+      } catch (error) { console.error(error); app.exit(1); }
+    });
+  }
   window.loadFile(entry);
 }
 
