@@ -23,18 +23,18 @@
 
 `Reagent-Preparation-Calculator` は「試薬作成計算ソフト」の識別名です。ファイル名でソフト・版・対象PCが分かるようにしています。
 
-| v1.1.2のファイル名 | 対象 |
+| v1.1.3のファイル名 | 対象 |
 | --- | --- |
-| `Reagent-Preparation-Calculator-v1.1.2-Windows-x64-Portable.exe` | Windows、インストール不要のポータブル版 |
-| `Reagent-Preparation-Calculator-v1.1.2-macOS-x64.dmg` | Intel Mac |
-| `Reagent-Preparation-Calculator-v1.1.2-macOS-arm64.dmg` | Apple Silicon Mac（Mシリーズ） |
-| `Reagent-Preparation-Calculator-v1.1.2-Browser-Offline.zip` | オフラインブラウザ版（展開してindex.htmlを開く） |
+| `Reagent-Preparation-Calculator-v1.1.3-Windows-x64-Portable.exe` | Windows、インストール不要のポータブル版 |
+| `Reagent-Preparation-Calculator-v1.1.3-macOS-x64.dmg` | Intel Mac |
+| `Reagent-Preparation-Calculator-v1.1.3-macOS-arm64.dmg` | Apple Silicon Mac（Mシリーズ） |
+| `Reagent-Preparation-Calculator-v1.1.3-Browser-Offline.zip` | オフラインブラウザ版（展開してindex.htmlを開く） |
 
 GitHubの「Source code (zip / tar.gz)」は自動生成の開発用ソースです。この表示名は変更できません。通常の利用では上記の名前付きファイルを取得してください。
 
 ### macOSの対応バージョン
 
-v1.1.2はmacOS 12（Monterey）以降を対象とし、Electron 43.7.9を使用しています。v1.1.0・v1.1.1はElectron 44を使用するためmacOS 13以降が必要で、12.7.4では起動できません。macOS 12を使用している方はv1.1.2以降の対応版を取得してください。Apple Siliconは `arm64.dmg`、Intel Macは `x64.dmg` を選択します。
+v1.1.3はmacOS 12（Monterey）以降を対象とし、Electron 43.7.9を使用しています。v1.1.0・v1.1.1はElectron 44を使用するためmacOS 13以降が必要で、12.7.4では起動できません。macOS 12を使用している方はv1.1.3以降の対応版を取得してください。Apple Siliconは `arm64.dmg`、Intel Macは `x64.dmg` を選択します。
 
 配布ビルドではアプリ本体とElectron Frameworkの最低OS要件を確認します。macOS 12.7.4の実機起動は別途確認が必要です。
 
