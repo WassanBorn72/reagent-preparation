@@ -32,7 +32,7 @@ Mac版は**macOS 12（Monterey）以降**を対象としています。macOS 12.
 ### Mac
 
 1. ダウンロードした `.dmg` を開きます。
-2. **Reagent Calculator**を**Applications（アプリケーション）**にコピーします。
+2. **Reagent Calculator**を **Applications（アプリケーション）** にコピーします。
 3. アプリケーションフォルダーから起動します。
 
 警告や「壊れている」という表示が出たら、後半の[困ったとき](#困ったとき)を参照してください。
