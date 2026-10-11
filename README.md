@@ -19,7 +19,7 @@ PCの専用ウィンドウで使えます。ブラウザ版もあり、起動後
 
 Macの種類が分からない場合は、Appleメニュー → **このMacについて**を開きます。「チップ：Apple M…」ならApple Silicon版、「プロセッサ：Intel…」ならIntel版です。
 
-Mac版は**macOS 12（Monterey）以降**を対象としています。macOS 12.7.4での実機起動は未確認です。古いv1.1.0・v1.1.1はmacOS 12では起動できません。
+Mac版は**macOS 12（Monterey）以降**を対象としています。macOS 12.7.4での実機起動は確認しました。古いv1.1.0・v1.1.1はmacOS 12では起動できません。
 
 [更新内容・ほかのバージョン](https://github.com/WassanBorn72/reagent-preparation/releases)も確認できます。**Source code**は開発用のファイルなので、通常の利用では上のリンクを選んでください。リンクが開けない場合はリリース一覧で公開状況を確認してください。
 
