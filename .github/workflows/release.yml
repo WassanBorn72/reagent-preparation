@@ -58,6 +58,9 @@ jobs:
       - run: npm run ${{ matrix.command }} -- --publish never
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Verify macOS 12 compatibility metadata
+        if: runner.os == 'macOS'
+        run: python3 scripts/check-macos-minimum.py
       - uses: actions/upload-artifact@v4
         with:
           name: release-${{ matrix.artifact }}
