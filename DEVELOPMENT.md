@@ -86,4 +86,4 @@ Windowsの発行元署名とMacのApple Developer ID署名・公証は未設定�
 
 ## アイコン
 
-薬品を混ぜるイメージのアイコンを `build/icon.png`、`build/icon.ico`、`build/icon.icns` に配置します。画面とブラウザでは `assets/icon.png` を使用します。Electronの配布設定・ウィンドウ・HTMLの参照を揃え、ブラウザ版ZIPにもassetsを含めてください。
+薬品を混ぜるシンプルな透過アイコンを `build/icon.png`、`build/icon.ico`、`build/icon.icns` に配置します。画面とブラウザでは `assets/icon.png` を使用します。Electronの配布設定・ウィンドウ・HTMLの参照を揃え、ブラウザ版ZIPにもassetsを含めてください。
