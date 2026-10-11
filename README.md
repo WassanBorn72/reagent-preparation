@@ -4,14 +4,16 @@
 
 ## ダウンロード
 
-[リリース一覧](https://github.com/WassanBorn72/reagent-preparation/releases)を開き、利用するPCに合うファイルを **Assets** からダウンロードしてください。バージョン番号はリリースごとに異なります。
+**v1.1.3をダウンロード**：利用するPCに合うリンクをクリックしてください。
 
-| 利用するPC | ファイル名の末尾 | 使い方 |
+| 利用するPC | 直接ダウンロード | 使い方 |
 | --- | --- | --- |
-| Windows（x64） | `Windows-x64-Portable.exe` | ダウンロードしたEXEをダブルクリック |
-| Intel Mac | `macOS-x64.dmg` | DMGを開き、アプリをApplicationsにコピーして起動 |
-| Apple Silicon Mac（Mシリーズ） | `macOS-arm64.dmg` | DMGを開き、アプリをApplicationsにコピーして起動 |
-| ブラウザで使う場合 | `Browser-Offline.zip` | ZIPを展開し、フォルダー内の `index.html` を開く |
+| Windows（x64） | [Windows版（EXE）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-Windows-x64-Portable.exe) | ダウンロードしたEXEをダブルクリック |
+| Intel Mac | [Intel Mac版（DMG）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-macOS-x64.dmg) | DMGを開き、アプリをApplicationsにコピーして起動 |
+| Apple Silicon Mac（Mシリーズ） | [Apple Silicon Mac版（DMG）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-macOS-arm64.dmg) | DMGを開き、アプリをApplicationsにコピーして起動 |
+| ブラウザで使う場合 | [オフラインブラウザ版（ZIP）](https://github.com/WassanBorn72/reagent-preparation/releases/download/v1.1.3/Reagent-Preparation-Calculator-v1.1.3-Browser-Offline.zip) | ZIPを展開し、フォルダー内の `index.html` を開く |
+
+[リリース詳細・更新情報](https://github.com/WassanBorn72/reagent-preparation/releases/tag/v1.1.3) ／ [リリース一覧](https://github.com/WassanBorn72/reagent-preparation/releases)
 
 ファイル名は `Reagent-Preparation-Calculator-vバージョン番号-…` です。通常の利用には **Source code (zip / tar.gz)** を選ぶ必要はありません。追加の開発ツールのインストールも不要です。
 

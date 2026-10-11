@@ -57,7 +57,7 @@ node --test tests/*.test.js
 
 ## 正式リリース
 
-`package.json` と `package-lock.json` のバージョンを揃え、`releases/vX.Y.Z.md` に変更内容を記載してコミットします。そのコミットに `vX.Y.Z` タグを付けてプッシュすると、**Release desktop applications** がWindows・Intel Mac・Apple Silicon Macの配布ファイルを作成します。テスト・全ビルド・ファイルの検証が成功した場合のみ、名前付きのオフラインブラウザ版ZIP、チェックサムとリリースノートを添えて正式Releaseを公開します。公開ジョブのみリポジトリへの書き込み権限を使用します。
+`package.json` と `package-lock.json` のバージョンを揃え、READMEの直接ダウンロードURL・表示バージョンも更新し、`releases/vX.Y.Z.md` に変更内容を記載してコミットします。そのコミットに `vX.Y.Z` タグを付けてプッシュすると、**Release desktop applications** がWindows・Intel Mac・Apple Silicon Macの配布ファイルを作成します。テスト・全ビルド・ファイルの検証が成功した場合のみ、名前付きのオフラインブラウザ版ZIP、チェックサムとリリースノートを添えて正式Releaseを公開します。公開ジョブのみリポジトリへの書き込み権限を使用します。
 
 失敗時はActionsのログを確認し、修正が必要なら次のバージョンでリリースしてください。一時的な失敗はタグを選んだ手動実行またはRe-runで再試行できます。既存Releaseの上書きは行いません。GitHubでActionsや組織ポリシーにより書き込みを制限している場合は、管理者による設定確認が必要です。
 
